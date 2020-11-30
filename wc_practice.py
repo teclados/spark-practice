@@ -16,9 +16,9 @@ if __name__ == "__main__":
 	sc = SparkContext(sys.argv[1], "python_wordcount_sorted in bigdataprogrammiing")
 	lines = sc.textFile(sys.argv[2],2)
 	print(lines.getNumPartitions()) # print the number of partitions
-	counts = lines.flatMap(lambda line: line.split("\n"))
-        filtered = counts.filter(lambda x: x!='Tokyo')
-	reduced = filtered.map(lambda word: (map_phase(word), 1)).reduceByKey(lambda a, b: a + b)
+	airs = lines.flatMap(lambda line: line.split("\n"))
+        filtered = airs.filter(lambda air: air!='Tokyo')
+	reduced = filtered.map(lambda x: (map_phase(x), 1)).reduceByKey(lambda a, b: a + b)
 	result = reduced.sortBy(lambda x: x[1])
         result.collect()
         result.saveAsTextFile(sys.argv[3])
